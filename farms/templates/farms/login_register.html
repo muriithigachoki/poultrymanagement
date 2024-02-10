@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center vh-100 ">
+  {% if page == "login" %}
+  <div class="login-page">
+    <form method="post" action="">
+      {% csrf_token %}
+
+      <div>
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" class="form-control" name="username" placeholder="Enter Username" />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" name="password" placeholder="Enter Password" />
+        </div>
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+      </div>
+    </form>
+    <p>Haven't signed up yet?</p>
+    <a href="{% url 'register' %}" class="btn btn-link">Register</a>
+  </div>
+  {% else %}
+  <div>
+    <form method="POST" novalidate>
+      {% csrf_token %}
+      <h2>Sign Up</h2>
+
+      {% for field in form %}
+      <div class="mb-3">
+        {% if field.errors %}
+        <ul class="errorlist">
+          {% for error in field.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+        {{ field.label_tag }} {{ field }}
+      </div>
+      {% endfor %}
+      <input type="submit" class="btn btn-primary" value="Register" />
+    </form>
+  </div>
+  {% endif %}
+</div>
+{% endblock content %}
+
+</body>
+</html>

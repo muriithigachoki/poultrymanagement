@@ -1,0 +1,71 @@
+
+{% extends "base.html" %}
+
+<hr>
+
+ {% load static %} 
+{% block content %}
+
+<style>
+  .farm-container{
+    display:grid;
+    grid-template-columns: 1fr 3fr;
+  }
+</style>
+
+  <h1> FARMS </h1>
+
+  <div class="farm-container">
+     
+    <div >
+      <h2> Browse Farms</h2>
+      <hr>
+
+      <div>
+        <a href="{% url 'farm-list' %}" >All </a> <br><hr>
+      </div>
+        {% for farm in farms %}
+        {% if request.user == farm.farmer %}
+          <div>
+            <a href="{% url 'farm-detail' farm.id %}?q={{ farm.farmName }} " >{{farm.farmName}} </a> <br><hr>
+          </div>
+
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div>
+        <a href="{% url 'createfarm' %}">AddFarms</a>
+        <div>
+          {% for farm  in farms %}
+      
+          <div>
+            {% if request.user == farm.farmer %}
+
+            <h3>{{farms.id}}
+              <a href=" {% url 'farm-detail' farm.id %}"  >
+              {{farm.farmName}}</a>
+            </h3>
+            
+            <a href="{% url 'update-farm' farm.id %}">Edit</a>
+            <a style="color: red" href="{% url 'delete-farm' farm.id %}">Delete</a><br>
+            
+
+            <h4>
+              {{ farm.description }}
+            </h4>
+            {% endif %}
+          </div>
+          {%  endfor %} 
+        </div>
+    </div>
+
+  </div>
+
+
+ {% endblock content%} 
+
+
+
+
+ 

@@ -1,0 +1,52 @@
+{% extends 'base.html' %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income List</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+<body>
+    {% block content %}
+    <h3>Expenses:</h3>
+    <table class="table caption-top">
+        <thead>
+            <thead>
+                <tr>
+                    <th scope="col" >month</th>
+                    <th scope="col" >Category</th>
+                    <th scope="col" >Total Amount</th>
+                    <th scope="col">Expense Date</th>
+                    <th scope="col" >Description</th>
+                </tr>
+            </thead>
+        </thead>
+        <tbody>
+            {% for expense in expense %}
+                <tr>
+                    <td>{{ expense.month }}</td>
+                    <td>{{ expense.category }}</td>
+                    <td>{{ expense.total_amount }}</td>
+                    <td>{{ expense.expense_date }}</td>
+                    <td>{{ expense.description }}</td>
+                    
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">No expenses recorded for this farm.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+
+      <a href="{% url 'create-expense' %}"> add expenses</a><br>
+      <a href="{% url 'add-income' %}">view Income</a><br>
+      <a href="{% url 'farm-list' %}">Back to Farm List</a>
+    
+      {% endblock content %}
+    
+</body>
+</html>

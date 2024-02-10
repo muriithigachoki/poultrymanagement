@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    {% block content %}
+
+    <div>
+      <div>
+        <h2>Farm Details</h2>
+        <h3>Farm Name: {{ farm.farmName }}</h3>
+        <ul>
+          <li><strong>Location:</strong> {{ farm.location }}</li>
+          <li><strong>Capacity:</strong> {{ farm.capacity }}</li>
+          <li><strong>Description:</strong> {{ farm.description }}</li>
+          <li><strong>Created At:</strong> {{ farm.created_at }}</li>
+        </ul>
+      </div>
+
+      <div>
+        <ul>
+          {% if farm.id %}
+          <li><a href="{% url 'poultry-list' farm.id  %}">View Poultries</a></li>
+          <li> <a href="{% url 'expense-list' farm.id  %}">View expenses</a></li>
+          <li><a href="{% url 'income-list' farm.id %}">view Income</a></li>
+          <li><a href="{% url 'revenue-expense-chart' farm.id %}">results and analysis</a></li>          
+          {% endif %} <br />
+          <li><a href="{% url 'farm-list' %}">Back to Farm List</a></li>
+        </ul>
+
+      </div>
+    </div>
+
+    {% endblock content %}
+  </body>
+</html>

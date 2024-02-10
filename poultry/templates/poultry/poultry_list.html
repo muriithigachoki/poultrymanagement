@@ -1,0 +1,53 @@
+{% extends 'base.html' %} 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income List</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+<body>
+    {% block content %}
+    <h3>Poultry Breeds Available</h3>
+
+    <div class="table-responsive">
+        <table class="table table-info table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Breed</th>
+                    <th scope="col">Number of Poultries</th>
+                    <th scope="col">Age in Weeks</th>
+                    <th scope="col">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% for poultry in poultries %}
+                
+                    <tr>
+                        <td>{{ poultry.breed }}</td>
+                        <td>{{ poultry.no_of_poultries }}</td>
+                        <td>{{ poultry.age_in_weeks }}</td>
+                        <td>{{ poultry.description | linebreaksbr }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4">No poultries recorded for this farm.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-3">
+        <a class="btn btn-primary" href="{% url 'create-poultry' %}">Add Poultries</a>
+        <a class="btn btn-secondary" href="{% url 'farm-list' %}">Back to Farm List</a>
+    </div>
+{% endblock %}
+</body>
+</html>
